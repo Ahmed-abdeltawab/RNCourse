@@ -12,7 +12,11 @@ export default function App () {
       { text: enteredGoalText, id: Math.random().toString() }
     ])
   }
-
+  function removeGoalHandler (goalId) {
+    // setCourseGoals(currentCourseGoals => {
+    //   return currentCourseGoals.filter(goal => goal.id !== goalId)
+    // })
+  }
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={addGoalHandler} />
@@ -20,7 +24,13 @@ export default function App () {
         <FlatList
           data={courseGoals}
           renderItem={itemData => {
-            return <GoalItem text={itemData.item.text} />
+            return (
+              <GoalItem
+                onDeleteItem={removeGoalHandler}
+                id={itemData.item.id}
+                text={itemData.item.text}
+              />
+            )
           }}
           keyExtractor={(item, index) => {
             return item.id
